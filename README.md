@@ -17,8 +17,4 @@ Inputs    : Binary Input
 Conditions: 1.Set
             2.Reset
             
-States    : 1.Empty (0)
-            2.Almost Empty (1)
-            3.Partially full (2-5)
-            4.Almost Full (6)
-            5.Full (7)
+States    : Empty(0)  Almost Empty(1)  Partial conditio(2-5)  Almost Full(6)  Full(7)
