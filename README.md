@@ -40,7 +40,7 @@ FULL (N): All entries occupied, write disabled, read enabled
 
 🔸Full/Empty flag logic driven by synchronized pointers.
 
-<h3><u>Tools & Hardware Used</u></h3>
+<h3><u>Tools & Hardware Used:</u></h3>
 
 FPGA: ZedBoard Zynq-7000
 
