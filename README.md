@@ -18,3 +18,8 @@ Conditions: 1.Set
             2.Reset
             
 States    : Empty(0)  Almost Empty(1)  Partial conditio(2-5)  Almost Full(6)  Full(7)
+
+<h3><u>Features:</u></h3>
+
+FSM states:
+         Input
