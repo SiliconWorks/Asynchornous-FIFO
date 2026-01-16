@@ -51,6 +51,8 @@ Language: Verilog HDL
 Verification: Vivado Simulator / Testbench for functional validation
 
 <h3><u>  FSM States: </u></h3>
+![Diagram](![Diagram](https://github.com/username/repo-name/blob/main/images/diagram.png?raw=true)
+)
 
 
 
