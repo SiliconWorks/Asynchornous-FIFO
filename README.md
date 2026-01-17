@@ -54,7 +54,7 @@ Verification: Vivado Simulator / Testbench for functional validation
 
 An Asynchronous FIFO enables safe data transfer between two independent clock domains using separate read and write pointers. There is no global FSM; instead, operation is controlled by pointer comparison and FULL/EMPTY flags.
 
-⚙️ Operational Principle
+**Operational Principle**
 
 Write side operates only on wr_clk
 
@@ -64,14 +64,16 @@ Pointers are maintained in binary (for addressing) and Gray code (for CDC safety
 
 Gray-coded pointers are synchronized across clock domains using 2-FF synchronizers
 
-✍️ Write & 📤 Read — Unified Flow
-On wr_clk (Write Domain)
+**Write & Read — Unified Flow:**
+
+On wr_clk (Write Domain):
 
 A write occurs when:
 
 wr_en = 1
 
 full = 0
+
 
 Actions:
 
@@ -82,7 +84,8 @@ Increment the binary write pointer
 Convert the updated pointer to Gray code
 
 Synchronize the Gray-coded write pointer to the read domain
-On rd_clk (Read Domain)
+
+**On rd_clk (Read Domain):**
 
 A read occurs when:
 
@@ -100,15 +103,16 @@ Convert the updated pointer to Gray code
 
 Synchronize the Gray-coded read pointer to the write domain
 
-FULL & EMPTY Flag Generation
+**FULL & EMPTY Flag Generation:**
 
-EMPTY (Read Domain)
+EMPTY (Read Domain):
 Indicates no unread data is available
 
-FULL (Write Domain)
+FULL (Write Domain):
 Indicates FIFO has reached maximum capacity
 
-Example (FIFO Depth = 8)
+**Example (FIFO Depth = 8):**
+
 Stored Entries	Status
 0	   EMPTY
 1–7	 PARTIALLY FILLED
