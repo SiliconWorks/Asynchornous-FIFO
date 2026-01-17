@@ -111,7 +111,7 @@ Indicates no unread data is available
 FULL (Write Domain):
 Indicates FIFO has reached maximum capacity
 
-<h3><u>Design:</u></h3>
+<h3><u>design.v:</u></h3>
 `timescale 1ns / 1ps
 
 
