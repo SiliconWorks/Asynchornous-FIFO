@@ -112,39 +112,13 @@ FULL (Write Domain):
 Indicates FIFO has reached maximum capacity
 
 <h3><u>design.v:</u></h3>
-Here is a design code for Asynchronous FIFO
-```verilog
-`timescale 1ps/1ps
+This design implements an asynchronous FIFO that allows safe data transfer between two independent clock domains (wr_clk and rd_clk). Design code for Asynchronous FIFO is given below
+https://github.com/duraimurugan9168-svg/Asynchornous-FIFO-/blob/4ce28261f496cd185193f750b2570918b65af8d4/FILES/design
 
-module AWMC_tb();
-    reg c_in, clk, reset, start, pause, lid;
-    wire [2:0] stage;
-    wire done;
-    wire input_valve;
-    wire output_drain;
-
-    AWMC uut (
-        .c_in(c_in),
-        .clk(clk),
-        .reset(reset),
-        .start(start),
-        .pause(pause),
-        .stage(stage),
-        .done(done)
-    );
-
-    initial begin
-        reset = 1'b0;
-        #1 reset = 1'b1;
-        #1 reset = 1'b0;
-        c_in = 1'b0;
-        forever #5 c_in = ~c_in;
-    end
-endmodule
-```
-
-
-
+<h3><u>testbench.v:</u></h3>
+The testbench verifies the functionality of the asynchronous FIFO by generating independent write and read clocks, applying reset, and driving controlled write and read enable signals.
+The Testbench code for Asyynchronous FIFO is given below
+https://github.com/duraimurugan9168-svg/Asynchornous-FIFO-/blob/dcd3d1ff93411345b0300af3cae70f11f1e331e9/FILES/testbench
 
 
 
