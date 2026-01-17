@@ -113,7 +113,7 @@ Indicates FIFO has reached maximum capacity
 
 <h3><u>design.v:</u></h3>
 Here is a design code for Asynchronous FIFO
-'''
+''' verilog
 timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company:
@@ -264,8 +264,7 @@ module asyncfifo #(
      assign almost_full  = (fifo_count >= (DEPTH - 2)) && !full;
 
 
-endmodule
-'''
+endmodule '''
 
 
 
