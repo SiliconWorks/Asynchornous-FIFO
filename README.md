@@ -50,9 +50,17 @@ Language: Verilog HDL
 
 Verification: Vivado Simulator / Testbench for functional validation
 
+<h3><u>  BLOCK DIAGRAM: </u></h3>
+
+The below block diagram shows how the Asynchrnous FIFO works
+
+<img width="1920" height="1080" alt="UPDATED ASYNCHRNOUS FIFO BLOCK DIAGRAM" src="https://github.com/user-attachments/assets/31346058-27e9-4469-9c38-8aabfb646a8c" />
+
 <h3><u>  Read & Write operations: </u></h3>
 
 An Asynchronous FIFO enables safe data transfer between two independent clock domains using separate read and write pointers. There is no global FSM; instead, operation is controlled by pointer comparison and FULL/EMPTY flags.
+
+
 
 **Operational Principle**
 
