@@ -2,7 +2,7 @@
 <h3><u>Project Overview:</u></h3>
                
                
-This project features a parameterized Asynchronous FIFO in Verilog, designed for reliable data transfer across independent clock domains. It employs industry-standard CDC (Clock Domain Crossing) techniques to ensure data integrity and system stability..
+TThis project implements a parameterized Asynchronous FIFO in Verilog for reliable data transfer across independent clock domains. It ensures CDC safety by using Gray-code pointers and 2-FF synchronizers to prevent metastability. The design generates stable Full/Empty flags and is fully configurable for various data widths and depths. Functionality is verified through simulations covering wrap-around and simultaneous R/W boundary conditions.
 
 <h3><u>Problem statement:</u></h3>
 
