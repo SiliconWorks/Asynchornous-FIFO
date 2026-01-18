@@ -113,29 +113,28 @@ Indicates FIFO has reached maximum capacity
 
 <h3><u>Asynchrnous FIFO states:</u></h3>
 The below image indicates the FIFO states for the system of depth 8
+
 <img width="1239" height="693" alt="Screenshot 2026-01-18 111946" src="https://github.com/user-attachments/assets/ee41918a-f699-4587-9d81-27c6f015b0dc" />
 
-State Breakdown (Depth 8)
+**State Breakdown (Depth 8)**
 The numbers above the boxes represent the occupancy count (how many data slots are currently filled).
 
-EMPTY (0): The starting state. The buffer contains no data. Any attempt to read from here would typically trigger an Underflow.
+**EMPTY (0)**: The starting state. The buffer contains no data. Any attempt to read from here would typically trigger an Underflow.
 
-ALMOST EMPTY (1): Only one slot is filled. This is a critical threshold state often used to signal the consumer to stop reading soon.
+**ALMOST EMPTY (1):** Only one slot is filled. This is a critical threshold state often used to signal the consumer to stop reading soon.
 
-PARTIALLY FULL OR EMPTY (2-5): The "normal" operating range. The FIFO is neither nearing its maximum capacity nor its empty state.
+**PARTIALLY FULL OR EMPTY (2-5):** The "normal" operating range. The FIFO is neither nearing its maximum capacity nor its empty state.
 
-ALMOST FULL (6): The buffer is nearing capacity. Only one or two slots remain. This signals the producer to slow down or stop writing.
+**ALMOST FULL (6):** The buffer is nearing capacity. Only one or two slots remain. This signals the producer to slow down or stop writing.
 
-FULL (7-8): The buffer has reached its maximum capacity.
+**FULL (7-8):** The buffer has reached its maximum capacity.
 
-Note: In an 8-depth system, "Full" usually triggers at 7 or 8 depending on the specific logic design.
-
-Error Conditions
+**Error Conditions**
 The diagram shows two terminal "error" states that occur when the FIFO boundaries are ignored:
+**
+OVERFLOW: **This occurs if the system attempts to write (DATA_IN) more data when the state is already FULL. This results in data loss as there is no space left.
 
-OVERFLOW: This occurs if the system attempts to write (DATA_IN) more data when the state is already FULL. This results in data loss as there is no space left.
-
-UNDERFLOW: This occurs if the system attempts to read data when the state is EMPTY. This results in invalid data being passed to the next stage.
+**UNDERFLOW:** This occurs if the system attempts to read data when the state is EMPTY. This results in invalid data being passed to the next stage.
 
 <h3><u>Design.v:</u></h3>
 This design implements an asynchronous FIFO that allows safe data transfer between two independent clock domains (wr_clk and rd_clk). Design code for Asynchronous FIFO is given below
