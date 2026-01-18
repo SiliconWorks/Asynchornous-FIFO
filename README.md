@@ -113,7 +113,7 @@ Indicates FIFO has reached maximum capacity
 
 <h3><u>Asynchrnous FIFO states:</u></h3>
 The below image indicates the FIFO states for the system of depth 8
-![Uploading Screenshot 2026-01-18 111946.png…]()
+<img width="1239" height="693" alt="Screenshot 2026-01-18 111946" src="https://github.com/user-attachments/assets/ee41918a-f699-4587-9d81-27c6f015b0dc" />
 
 State Breakdown (Depth 8)
 The numbers above the boxes represent the occupancy count (how many data slots are currently filled).
