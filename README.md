@@ -162,10 +162,12 @@ This waveform represents the functional simulation of an Asynchronous FIFO where
 
 
 <h3><u>PORT DECLARATIONS:</u></h3>
-<img width="759" height="526" alt="Screenshot 2026-01-20 085700" src="https://github.com/user-attachments/assets/7faba79f-8657-4fc7-b590-91d62b7ecb69" />
 
 
 <h3><u>FILE STRUCTURE:</u></h3>
+
+<img width="759" height="526" alt="Screenshot 2026-01-20 085700" src="https://github.com/user-attachments/assets/7faba79f-8657-4fc7-b590-91d62b7ecb69" />
+
 
 
 
