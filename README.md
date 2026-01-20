@@ -124,8 +124,6 @@ The below image indicates the FIFO states
 
 <img width="1241" height="696" alt="Screenshot 2026-01-20 094713" src="https://github.com/user-attachments/assets/79a7b671-3e1b-46b0-8e8b-64bbd190140f" />
 
-**State Breakdown (Depth 8)**
-The numbers above the boxes represent the occupancy count (how many data slots are currently filled).
 
 **EMPTY :** The starting state. The buffer contains no data. Any attempt to read from here would typically trigger an Underflow.
 
