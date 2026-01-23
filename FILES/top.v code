@@ -1,37 +1,13 @@
+
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company:
-// Engineer:
-//
-// Create Date: 07.01.2026 12:07:29
-// Design Name:
-// Module Name: top_asyncfifo
-// Project Name:
-// Target Devices:
-// Tool Versions:
-// Description:
-//
-// Dependencies:
-//
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-//
-//////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
 
 
 module top_asyncfifo (
     input  wire        clk,        // 100 MHz board clock
     input  wire        rst,        // BTNU (ASYNC RESET)
 
-    input  wire        sw_wr,      // BTNC (Write)
-    input  wire        sw_rd,      // BTNR (Read)
+    input  wire        sw_wr,      // BTNC -> START / STOP
+    input  wire        sw_rd,      // unused
     input  wire [7:0]  sw_data,    // SW0-SW7 (FIFO input)
 
     output wire [7:0]  fifo_dout,  // PMOD JB1 (FIFO output)
@@ -39,42 +15,37 @@ module top_asyncfifo (
 );
 
     // =====================================================
-    // CLOCKS (NO GENERATED CLOCK)
+    // CLOCKS
     // =====================================================
     wire wr_clk = clk;
     wire rd_clk = clk;
 
     // =====================================================
-    // DEBOUNCE BLOCK
+    // DEBOUNCE START / STOP BUTTON
     // =====================================================
-    wire sw_wr_db, sw_rd_db;
-
-    debounce db_wr (.clk(clk), .rst(rst), .noisy_in(sw_wr), .clean_out(sw_wr_db));
-    debounce db_rd (.clk(clk), .rst(rst), .noisy_in(sw_rd), .clean_out(sw_rd_db));
-
-    // =====================================================
-    // EDGE DETECT (CLOCK ENABLE)
-    // =====================================================
-    reg sw_wr_d, sw_rd_d;
-
-    always @(posedge clk) begin
-        sw_wr_d <= sw_wr_db;
-        sw_rd_d <= sw_rd_db;
-    end
-
-    wire wr_en_pulse = sw_wr_db & ~sw_wr_d;
-    wire rd_en_pulse = sw_rd_db & ~sw_rd_d;
+    wire sw_wr_db;
+    debounce db_wr (
+        .clk(clk),
+        .rst(rst),
+        .noisy_in(sw_wr),
+        .clean_out(sw_wr_db)
+    );
 
     // =====================================================
-    // INPUT DATA LATCH
+    // START / STOP TOGGLE
     // =====================================================
-    reg [7:0] data_latched;
+    reg run;
+    reg sw_wr_d;
 
     always @(posedge clk or posedge rst) begin
-        if (rst)
-            data_latched <= 8'd0;
-        else if (wr_en_pulse)
-            data_latched <= sw_data;
+        if (rst) begin
+            run     <= 1'b0;
+            sw_wr_d <= 1'b0;
+        end else begin
+            sw_wr_d <= sw_wr_db;
+            if (sw_wr_db & ~sw_wr_d)
+                run <= ~run;     // toggle start / stop
+        end
     end
 
     // =====================================================
@@ -85,6 +56,116 @@ module top_asyncfifo (
     wire overflow, underflow;
 
     // =====================================================
+    // INPUT DATA LATCH
+    // =====================================================
+    reg [7:0] data_latched;
+
+    // =====================================================
+    // WRITE TIMER (1 SECOND @ 100 MHz)
+    // =====================================================
+    reg [26:0] wr_cnt;
+    reg        wr_tick;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            wr_cnt  <= 0;
+            wr_tick <= 0;
+        end else begin
+            wr_tick <= 0;
+            if (wr_cnt == 27'd100_000_000) begin
+                wr_cnt  <= 0;
+                wr_tick <= 1;
+            end else begin
+                wr_cnt <= wr_cnt + 1;
+            end
+        end
+    end
+
+    // =====================================================
+    // READ TIMER (2 SECONDS @ 100 MHz)
+    // =====================================================
+    reg [27:0] rd_cnt;
+    reg        rd_tick;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            rd_cnt  <= 0;
+            rd_tick <= 0;
+        end else begin
+            rd_tick <= 0;
+            if (rd_cnt == 28'd200_000_000) begin
+                rd_cnt  <= 0;
+                rd_tick <= 1;
+            end else begin
+                rd_cnt <= rd_cnt + 1;
+            end
+        end
+    end
+
+    // =====================================================
+    // CONTROL FSM
+    // =====================================================
+    localparam IDLE           = 2'd0,
+               WRITE_MODE     = 2'd1,
+               FULL_READ_WAIT = 2'd2;
+
+    reg [1:0] state;
+    reg [1:0] read_count;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            state      <= IDLE;
+            read_count <= 0;
+        end else begin
+            case (state)
+                IDLE: begin
+                    if (run)
+                        state <= WRITE_MODE;
+                end
+
+                WRITE_MODE: begin
+                    if (full) begin
+                        state      <= FULL_READ_WAIT;
+                        read_count <= 0;
+                    end
+                end
+
+                FULL_READ_WAIT: begin
+                    if (rd_tick && !empty) begin
+                        if (read_count == 2)
+                            state <= WRITE_MODE;   // after 3 reads
+                        read_count <= read_count + 1;
+                    end
+                end
+            endcase
+        end
+    end
+
+    // =====================================================
+    // FINAL WRITE / READ ENABLES
+    // =====================================================
+    wire wr_en_final =
+        run &&
+        (state == WRITE_MODE) &&
+        wr_tick &&
+        !full;
+
+    wire rd_en_final =
+        run &&
+        rd_tick &&
+        !empty;
+
+    // =====================================================
+    // LATCH DATA ON WRITE
+    // =====================================================
+    always @(posedge clk or posedge rst) begin
+        if (rst)
+            data_latched <= 8'd0;
+        else if (wr_en_final)
+            data_latched <= sw_data;
+    end
+
+    // =====================================================
     // ASYNC FIFO INSTANCE
     // =====================================================
     asyncfifo dut (
@@ -92,8 +173,8 @@ module top_asyncfifo (
         .rd_clk(rd_clk),
         .rst   (rst),
 
-        .wr_en(wr_en_pulse),
-        .rd_en(rd_en_pulse),
+        .wr_en(wr_en_final),
+        .rd_en(rd_en_final),
         .din  (data_latched),
 
         .dout (dout),
@@ -108,7 +189,7 @@ module top_asyncfifo (
     assign fifo_dout = dout;
 
     // =====================================================
-    // LED STATUS
+    // LED STATUS (FLAGS)
     // =====================================================
     assign led[0] = empty;
     assign led[1] = almost_empty;
@@ -118,30 +199,29 @@ module top_asyncfifo (
     assign led[5] = underflow;
 
     // =====================================================
-    // WRITE / READ PULSE INDICATOR (STRETCHED)
+    // WRITE / READ LED PULSE STRETCH
     // =====================================================
-    reg [23:0] wr_led_cnt = 0;
-    reg [23:0] rd_led_cnt = 0;
+    reg [23:0] wr_led_cnt;
+    reg [23:0] rd_led_cnt;
 
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             wr_led_cnt <= 0;
             rd_led_cnt <= 0;
         end else begin
-            if (wr_en_pulse)
+            if (wr_en_final)
                 wr_led_cnt <= 24'hFFFFFF;
             else if (wr_led_cnt != 0)
                 wr_led_cnt <= wr_led_cnt - 1;
 
-            if (rd_en_pulse)
+            if (rd_en_final)
                 rd_led_cnt <= 24'hFFFFFF;
             else if (rd_led_cnt != 0)
                 rd_led_cnt <= rd_led_cnt - 1;
         end
     end
 
-    assign led[6] = (wr_led_cnt != 0);  // WRITE EVENT
-    assign led[7] = (rd_led_cnt != 0);  // READ EVENT
+    assign led[6] = (wr_led_cnt != 0);   // WRITE EVENT
+    assign led[7] = (rd_led_cnt != 0);   // READ EVENT
 
 endmodule
-
