@@ -150,7 +150,7 @@ https://github.com/SiliconWorks/Asynchornous-FIFO-/blob/a7d62d7d537b8be79946edf5
 <h3><u>TESTBENCH:</u></h3>
 The testbench verifies the functionality of the asynchronous FIFO by generating independent write and read clocks, applying reset, and driving controlled write and read enable signals.
 The Testbench code for Asyynchronous FIFO is given below
-https://github.com/duraimurugan9168-svg/Asynchornous-FIFO-/blob/dcd3d1ff93411345b0300af3cae70f11f1e331e9/FILES/testbench
+https://github.com/SiliconWorks/Asynchornous-FIFO-/blob/a7d62d7d537b8be79946edf542370809b919ead3/FILES/tb_asyncfifo.v
 
 <h3><u>SIMULATION AND WAVEFORM:</u></h3>
 This waveform represents the functional simulation of an Asynchronous FIFO where write and read operations occur in different clock domains (wr_clk and rd_clk). The FIFO safely transfers data across clock domains using synchronized pointers.
