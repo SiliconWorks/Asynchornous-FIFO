@@ -174,6 +174,8 @@ This project successfully demonstrates the design and verification of an Asynchr
 <h3><u>CONTRIBUTORS:</u></h3>
 
 Durai Murugan M , Bannari Amman Institute of Technology
+
+
 Vasan T , Bannari Amman Institute of Technology
 
 
