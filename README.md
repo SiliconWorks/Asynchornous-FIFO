@@ -157,10 +157,13 @@ This waveform represents the functional simulation of an Asynchronous FIFO where
 <img width="1919" height="1030" alt="Screenshot 2026-01-09 121448" src="https://github.com/user-attachments/assets/81e0a436-21f1-4e77-87ca-c9984ef71c64" />
 
 <h3><u>TECHNICAL VIEW:</u></h3>
-<img width="1919" height="1028" alt="Screenshot 2026-01-21 120717" src="https://github.com/user-attachments/assets/2ebe5608-8fef-4898-8483-97bf9839a46d" />
+<img width="2550" height="3300" alt="TECHNICAL VIEW" src="https://github.com/user-attachments/assets/cc7ff76d-0e61-4385-89ab-9147d70c130d" />
+
+
+
 
 <h3><u>SCHEMATIC VIEW:</u></h3>
-<img width="1919" height="1027" alt="Screenshot 2026-01-22 090213" src="https://github.com/user-attachments/assets/923ff9d0-bb53-42c9-97c5-f0ef505224c6" />
+<img width="3300" height="2550" alt="SCHEMATIC VIEW" src="https://github.com/user-attachments/assets/f1aaabf2-ea27-4986-a19d-1cc3e8e07cb0" />
 
 <h3><u>FILE STRUCTURE:</u></h3>
 
