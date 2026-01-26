@@ -259,7 +259,7 @@ This project successfully demonstrates the design and verification of an Asynchr
 
 
 
-<h3><u>NOTES:</u></h3>
+**NOTES:**
 
 This project improved my understanding of clock domain crossing issues and the practical use of Gray code and synchronizers in FPGA designs. It also strengthened my skills in Verilog coding, simulation, and debugging timing-related problems.
 
