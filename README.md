@@ -220,7 +220,7 @@ This waveform represents the functional simulation of an Asynchronous FIFO where
 
 
 
-**Output :**
+**OUTPUT :**
 
 FIFO in Zedboard Zynq 7000 FPGA :
 
