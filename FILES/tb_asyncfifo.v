@@ -15,7 +15,7 @@ module tb_asyncfifo;
     wire full, empty, almost_full, almost_empty;
     wire overflow, underflow;
 
-    // ================= DUT BLOCK =================
+    // ================= DUT BLOCK ================
     asyncfifo dut (
         .wr_clk(wr_clk),
         .rd_clk(rd_clk),
