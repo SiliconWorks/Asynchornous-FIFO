@@ -2,6 +2,7 @@
 `timescale 1ns / 1ps
 
 
+
 module top_asyncfifo (
     input  wire        clk,        // 100 MHz board clock
     input  wire        rst,        // BTNU (ASYNC RESET)
