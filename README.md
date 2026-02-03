@@ -63,7 +63,7 @@ INPUT → WRITE → READ → OUTPUT
  
  ❖  2-FF synchronizers for CDC safety
  
- ❖  Accurate FULL / EMPTY flag generation
+ ❖  FULL / EMPTY flag generation
  
  ❖  Almost Full / Almost Empty early-warning flags
  
@@ -329,9 +329,6 @@ Velmurugan R , Bannari Amman Institute of Technology       [LinkedIn](https://ww
 <h3><u>CONCLUSION:</u></h3>
 
 This project successfully demonstrates the design and verification of an Asynchronous FIFO for reliable data transfer between two independent clock domains. By using Gray-coded read and write pointers along with dual flip-flop synchronizers, the design effectively mitigates metastability issues common in CDC systems. The FIFO correctly generates Full, Empty, Almost Full, and Almost Empty flags, ensuring safe and efficient flow control. Simulation results confirm correct operation during normal, boundary, and wrap-around conditions. This implementation provides a robust and scalable solution suitable for real-time embedded and FPGA-based communication systems.
-
-
----
 
 
 
