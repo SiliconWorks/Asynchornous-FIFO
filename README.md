@@ -94,15 +94,15 @@ The below block diagram shows how the Asynchrnous FIFO works
 
 <img width="1920" height="1080" alt="WRITE POINTER BLOCK" src="https://github.com/user-attachments/assets/f3ec50de-ef2f-40c1-af0d-c1ea826cfbff" />
 
-The block diagram illustrates:
+**The block diagram illustrates:**
 
-Separate read and write clock domains
+- Separate read and write clock domains
 
-Binary and Gray-code pointer paths
+- Binary and Gray-code pointer paths
 
-Synchronization across clock domains
+- Synchronization across clock domains
 
-FULL / EMPTY flag generation
+- FULL / EMPTY flag generation
 
 
 **Read & Write operations:**
