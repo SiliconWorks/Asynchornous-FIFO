@@ -36,15 +36,15 @@ Correct operation is maintained under clock mismatch, pointer wrap-around, and b
 
 Inputs:
 
-Binary data input (din)
+-  Binary data input (din)
 
 Conditions:
 
-Reset
+-  Reset
 
-Write enable (wr_en)
+-  Write enable (wr_en)
 
-Read enable (rd_en)
+-  Read enable (rd_en)
 
 Logical Flow:
 INPUT → WRITE → READ → OUTPUT
