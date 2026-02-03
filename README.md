@@ -153,10 +153,10 @@ Although no global FSM is used, the FIFO implicitly operates in multiple modes, 
 
 **FULL & EMPTY Flag Generation:**
 
-EMPTY (Read Domain):
+-  **EMPTY (Read Domain):**
 Indicates no unread data is available
 
-FULL (Write Domain):
+-  **FULL (Write Domain):**
 Indicates FIFO has reached maximum capacity
 
 ---
