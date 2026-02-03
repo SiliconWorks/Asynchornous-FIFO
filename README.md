@@ -50,6 +50,7 @@ Correct operation is maintained under clock mismatch, pointer wrap-around, and b
 
 INPUT → WRITE → READ → OUTPUT
 
+---
 
 <h3><u>FEATURES:</u></h3>
 
@@ -71,14 +72,7 @@ INPUT → WRITE → READ → OUTPUT
  
  ❖  Verified for wrap-around and simultaneous R/W operations
  
-**Explanation:**
-
-EMPTY (0): No data, read disabled, write enabled
-
-PARTIALLY FULL (1 → N-1): Some data, read and write both enabled
-
-FULL (N): All entries occupied, write disabled, read enabled
-
+---
 
 <h3><u>TOOLS AND HARDWARE:</u></h3>
 
