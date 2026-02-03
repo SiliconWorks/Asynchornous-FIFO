@@ -34,11 +34,11 @@ This project addresses the problem by designing a CDC-safe Asynchronous FIFO in 
 The FIFO ensures reliable data transfer using Gray-code pointers and synchronized control logic.
 Correct operation is maintained under clock mismatch, pointer wrap-around, and boundary condition
 
-Inputs:
+**Inputs:**
 
 -  Binary data input (din)
 
-Conditions:
+**Conditions:**
 
 -  Reset
 
@@ -46,29 +46,30 @@ Conditions:
 
 -  Read enable (rd_en)
 
-Logical Flow:
+**Logical Flow:**
+
 INPUT → WRITE → READ → OUTPUT
 
 
 <h3><u>FEATURES:</u></h3>
 
- -  Fully parameterized FIFO (Data Width & Depth)
+ ❖  Fully parameterized FIFO (Data Width & Depth)
  
- -  Independent write and read clocks
+ ❖  Independent write and read clocks
  
- -  Binary & Gray-code pointer architecture
+ ❖  Binary & Gray-code pointer architecture
  
- -  2-FF synchronizers for CDC safety
+ ❖  2-FF synchronizers for CDC safety
  
- -  Accurate FULL / EMPTY flag generation
+ ❖  Accurate FULL / EMPTY flag generation
  
- -  Almost Full / Almost Empty early-warning flags
+ ❖  Almost Full / Almost Empty early-warning flags
  
- -  Overflow & Underflow detection with visible pulse stretching
+ ❖  Overflow & Underflow detection with visible pulse stretching
  
- -  Automatic operational mode selection (Write / Read controlled by flags)
+ ❖  Automatic operational mode selection (Write / Read controlled by flags)
  
- -  Verified for wrap-around and simultaneous R/W operations
+ ❖  Verified for wrap-around and simultaneous R/W operations
  
 **Explanation:**
 
