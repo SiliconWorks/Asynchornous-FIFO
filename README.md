@@ -19,7 +19,7 @@ This project implements a parameterized Asynchronous FIFO in Verilog for reliabl
 - [Contributors](https://github.com/SiliconWorks/Asynchornous-FIFO/blob/main/README.md#contributors)
 - [Conclusion](https://github.com/SiliconWorks/Asynchornous-FIFO/blob/main/README.md#conclusion)
 
----
+<u></u>
 
 <h3><u>PROBLEM STATEMENT:</u></h3>
 
