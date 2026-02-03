@@ -274,7 +274,8 @@ The output Video of Asynchrnous FIFO is given below
 
 **FILE STRUCTURE:**
 
-<img width="1115" height="632" alt="File structure" src="https://github.com/user-attachments/assets/407967f0-7493-41d1-83c8-5d3e488eb32e" />
+<img width="737" height="663" alt="File structure" src="https://github.com/user-attachments/assets/f27e8576-d47b-452e-a3bb-3bb1f32dfed9" />
+
 
 
 
