@@ -2,9 +2,11 @@
 
 
 
+
+
 module asyncfifo #(
     parameter DATA_WIDTH = 8,
-    parameter ADDR_WIDTH = 3,
+    parameter ADDR_WIDTH = 3,  
     parameter AF_MARGIN  = 1,
     parameter AE_MARGIN  = 1
 )(
@@ -25,24 +27,24 @@ module asyncfifo #(
     output wire                   underflow
 );
 
-    localparam DEPTH = 1 << ADDR_WIDTH;
+    localparam DEPTH = 1 << ADDR_WIDTH;  
 
-    // ================= MEMORY =================
+    // MEMORY
     reg [DATA_WIDTH-1:0] mem [0:DEPTH-1];
 
-    // ================= POINTERS =================
+    // POINTERS 
     reg [ADDR_WIDTH:0] wr_ptr_bin, wr_ptr_gray;
     reg [ADDR_WIDTH:0] rd_ptr_bin, rd_ptr_gray;
 
-    // ================= SYNC POINTERS =================
+    // SYNCHRONIZED POINTERS
     reg [ADDR_WIDTH:0] rd_ptr_gray_sync1, rd_ptr_gray_sync2;
     reg [ADDR_WIDTH:0] wr_ptr_gray_sync1, wr_ptr_gray_sync2;
 
-    // ================= OVERFLOW / UNDERFLOW COUNTERS =================
+    // OVERFLOW / UNDERFLOW COUNTERS
     reg [15:0] ovf_cnt;
     reg [15:0] udf_cnt;
 
-    // ================= FUNCTIONS =================
+    // FUNCTIONS
     function [ADDR_WIDTH:0] bin2gray(input [ADDR_WIDTH:0] bin);
         bin2gray = (bin >> 1) ^ bin;
     endfunction
@@ -56,7 +58,7 @@ module asyncfifo #(
         end
     endfunction
 
-    // ================= WRITE LOGIC =================
+    // WRITE LOGIC
     always @(posedge wr_clk or posedge rst) begin
         if (rst) begin
             wr_ptr_bin  <= 0;
@@ -70,13 +72,13 @@ module asyncfifo #(
                 ovf_cnt     <= 0;
             end
             else if (wr_en && full)
-                ovf_cnt <= 16'd50000;   // visible pulse
+                ovf_cnt <= 16'd50000;  
             else if (ovf_cnt != 0)
                 ovf_cnt <= ovf_cnt - 1;
         end
     end
 
-    // ================= READ LOGIC =================
+    // READ LOGIC
     always @(posedge rd_clk or posedge rst) begin
         if (rst) begin
             rd_ptr_bin  <= 0;
@@ -91,13 +93,13 @@ module asyncfifo #(
                 udf_cnt     <= 0;
             end
             else if (rd_en && empty)
-                udf_cnt <= 16'd50000;   // visible pulse
+                udf_cnt <= 16'd50000;  
             else if (udf_cnt != 0)
                 udf_cnt <= udf_cnt - 1;
         end
     end
 
-    // ================= POINTER SYNCHRONIZERS =================
+    // POINTER SYNCHRONIZATION
     always @(posedge wr_clk or posedge rst) begin
         if (rst) begin
             rd_ptr_gray_sync1 <= 0;
@@ -118,23 +120,26 @@ module asyncfifo #(
         end
     end
 
-    // ================= STATUS LOGIC =================
+    // STATUS FLAGS
     wire [ADDR_WIDTH:0] wr_bin_sync = gray2bin(wr_ptr_gray_sync2);
     wire [ADDR_WIDTH:0] rd_bin_sync = gray2bin(rd_ptr_gray_sync2);
 
+    // FULL: next write pointer == inverted MSBs of read pointer
     assign full =
         (bin2gray(wr_ptr_bin + 1) ==
         {~rd_ptr_gray_sync2[ADDR_WIDTH:ADDR_WIDTH-1],
           rd_ptr_gray_sync2[ADDR_WIDTH-2:0]});
 
+    // EMPTY: read pointer == synced write pointer
     assign empty = (rd_ptr_gray == wr_ptr_gray_sync2);
 
+    // FIFO COUNT
     wire [ADDR_WIDTH:0] fifo_count = wr_ptr_bin - rd_bin_sync;
 
-    assign almost_empty = (fifo_count <= 1) && !empty;
-    assign almost_full  = (fifo_count >= (DEPTH - 2)) && !full;
+    assign almost_empty = (fifo_count <= AE_MARGIN) && !empty;
+    assign almost_full  = (fifo_count >= (DEPTH - 1 - AF_MARGIN)) && !full;
 
-    // ================= OUTPUT FLAGS =================
+    // OUTPUT FLAGS
     assign overflow  = (ovf_cnt != 0);
     assign underflow = (udf_cnt != 0);
 
