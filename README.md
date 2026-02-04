@@ -327,12 +327,12 @@ We are grateful to our VLSI faculty for his consistent support and valuable guid
 
 **Dr.Elango Sekar** 
 
-🔗[[Linkedin](https://www.linkedin.com/in/elango-sekar-8973b958/)]  |🔗[[Github](https://github.com/eceelango)] 
+🔗[[Linkedin](https://www.linkedin.com/in/elango-sekar-8973b958/)]  **|**🔗[[Github](https://github.com/eceelango)] 
 
 Associate Professor , Department of ECE 
 Bannari Amman Institute Of Technology.
 
-We also extend our sincere thanks to BIT – Centre for SoC and FPGA Design for providing an excellent learning environment and technical support throughout this work.
+We also extend our sincere thanks to **BIT – Centre for SoC and FPGA Design** for providing an excellent learning environment and technical support throughout this work.
 
 
 🔗[LinkedIn](https://www.linkedin.com/in/bit-centre-for-soc-and-fpga-design-52a50b3a3)
