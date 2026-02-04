@@ -334,7 +334,8 @@ Bannari Amman Institute Of Technology.
 
 We also extend our sincere thanks to BIT – Centre for SoC and FPGA Design for providing an excellent learning environment and technical support throughout this work.
 
-[[LinkedIn](linkedin.com/in/bit-centre-for-soc-and-fpga-design-52a50b3a3)]
+
+🔗  [LinkedIn](https://www.linkedin.com/in/bit-centre-for-soc-and-fpga-design-52a50b3a3)
 
 
 ---
